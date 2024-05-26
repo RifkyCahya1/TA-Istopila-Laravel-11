@@ -1,0 +1,118 @@
+.section-admin{
+    display: flex;
+    align-items: center;
+    padding: 10px 30px !important;
+}
+
+.line-admin{
+    border: 3px solid #214eb0;
+    width: 30%;
+    margin-top: 0;
+    opacity: 1;
+    border-radius: 10px;
+}
+
+.custom-nav {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: start;
+}
+
+.custom-nav .custom-link {
+    color: #eee; 
+    border-radius: 20px; 
+    padding: 6px 25px !important; 
+    background-color: #023038;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.custom-nav li a:hover {
+    color: #023038; 
+    background-color: #b2c0d5;
+    text-decoration: none; 
+    font-weight: 500;
+    border-bottom: 2px solid #023038;
+}
+
+.custom-nav li.active a {
+    color: #023038; 
+    background-color: #b2c0d5;
+    text-decoration: none; 
+    border-bottom: 2px solid #023038;
+    font-weight: 500;
+}
+
+.header-project{
+    text-align: center;
+    background-color: #b2c0d5 !important;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.header-project p{
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0;
+}
+
+.card-project{
+    width: 100%;
+    margin: 10px 0px;
+    background-color: #f4f6f9 !important;
+}
+
+.body-project{
+    display: flex;
+    justify-content: space-between;
+}
+
+.line-project{
+    opacity: 1;
+    border-radius: 10px;
+}
+
+.teks-project{
+    font-size: 16px;
+    font-weight: 500;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+
+.view-link  {
+    text-decoration: none;
+}
+
+.fc-direction-ltr {
+    direction: ltr;
+    text-align: left;
+    max-height: 100vh;
+    max-width: 100vw;
+    background-color: white;
+    padding: 30px 20px;
+    border-radius: 20px;
+}
+
+.fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    padding: 2px 4px;
+    color: black;
+    text-decoration: none;
+}
+
+.fc .fc-daygrid-day-number {
+    padding: 4px;
+    position: relative;
+    z-index: 4;
+    color: black;
+    text-decoration: none;
+}

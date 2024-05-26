@@ -1,0 +1,42 @@
+label {
+    color: #0c0e19;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    margin: 6px 0;
+    box-sizing: border-box;
+    border: 2px solid #2c64e3;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.button-booking {
+    background-color: #2c64e3;
+    color: #e8eefc;
+    padding: 10px 20px;
+    margin: 6px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button-booking:hover {
+    color: #2c64e3;
+    background-color: #e8eefc;
+    font-weight: 500;
+}
+
+.map-con{
+    width: 600px;
+    height: 400px;
+    border-radius: 20px;
+}

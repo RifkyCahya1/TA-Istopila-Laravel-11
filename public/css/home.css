@@ -1,0 +1,88 @@
+.foto{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 25px !important;
+}
+
+.foto-section{
+    top: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+.teks{
+    font-size: 16px;
+    font-weight: 300;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.judul{
+    font-size: 34px;
+    font-weight: 400;
+    text-align: center;     
+    margin-bottom: 20px;
+    text-shadow: 10px 5px 25px rgb(138, 170, 239,1);
+}
+
+.custom-button{
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    background-color: #007585;
+    color: #e8eefc;
+    border: 2px solid #e8eefc;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 150px;
+    font-weight: 500;
+    box-shadow: 0px 2px 4px rgba(235, 0, 141, 0.2); 
+    text-decoration: none;
+}
+.custom-button:hover {
+    color: #007585;
+    background-color: #e8eefc;
+}
+
+.custom-card {
+    width: 100%;
+    border-radius: 30px;
+    padding: 20px; /* Adjusted padding */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; 
+    height: 470px;
+    transition: transform 0.3s;
+    background-color: #b2c0d5;
+    margin-top: 105px;
+}
+  
+.custom-card:hover {
+    transform: scale(1.05);
+}
+
+.custom-card .custom-card-image img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: -110px;
+    box-shadow: 5px 5px 10px #697089;
+}
+  
+.custom-card .custom-card-title {
+    font-size: 26px;
+    margin-top: 20px;
+}

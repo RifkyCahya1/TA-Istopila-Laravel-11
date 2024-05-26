@@ -1,0 +1,19 @@
+body{
+    font-family: "Poppins", sans-serif !important;
+    background-color: #F4F6F9 !important;
+    overflow-x: hidden;
+}
+
+.alert {
+    animation: fadeOut 3s ease forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
