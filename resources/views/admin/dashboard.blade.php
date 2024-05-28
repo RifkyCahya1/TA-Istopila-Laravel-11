@@ -98,6 +98,25 @@
             <h4 class="judul-map">Upcoming Event</h4>
             <hr class="line-project">
             <div id='calendar'></div>
+            <!-- Modal Bootstrap -->
+            <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detail Pemesanan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="bookingName"></p>
+                            <p id="bookingAddress"></p>
+                            <p id="bookingDateTime"></p>
+                            <p id="bookingDate"></p>
+                            <button id="addToCalendarBtn" class="btn btn-secondary">Tambah ke Kalender</button>
+                            <button id="navigateToLocationBtn" class="btn btn-primary">Menuju Lokasi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

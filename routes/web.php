@@ -14,6 +14,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/Upload', [App\Http\Controllers\AdminController::class, 'upload']);
     Route::get('/Project', [App\Http\Controllers\BookingController::class, 'adminIndex'])->name('admin.project');
     Route::post('/Project/{id}/update-status', [App\Http\Controllers\BookingController::class, 'updateStatus'])->name('admin.update-status');
+    Route::get('/bookings-on-progress', [App\Http\Controllers\BookingController::class, 'getBookingsOnProgress']);
 });
 
 //Upload Image 
@@ -36,10 +37,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('booking', [App\Http\Controllers\BookingController::class, 'store'])->name('booking.store');
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('admin/projects', [App\Http\Controllers\BookingController::class, 'adminIndex'])->name('admin.projects');
-    Route::post('admin/projects/{id}/update-status', [App\Http\Controllers\BookingController::class, 'updateStatus'])->name('admin.update-status');
-});
+
 
 
 require __DIR__.'/auth.php';

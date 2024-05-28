@@ -1,6 +1,11 @@
 @extends('main')
 
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="container-fluid section">
     <div class="row">
         <div class="col-md-6">
@@ -15,23 +20,23 @@
             <h5 class="judul-map">Booking : </h5>
             <form action="{{ route('booking.store') }}" method="POST">
                 @csrf
-                <label for="nama">Name</label><br>
+                <label for="nama">Nama</label><br>
                 <input type="text" id="nama" name="nama" placeholder="Istopila" required><br><br>
             
                 <label for="email">Email</label><br>
                 <input type="email" id="email" name="email" placeholder="Email@gmail.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><br><br>
             
-                <label for="phone">Phone Number / Whatsapp</label><br>
+                <label for="phone">Nomor Telepon / Whatsapp</label><br>
                 <input type="text" id="phone" name="phone" placeholder="08123456789" required pattern="[0-9]{10,13}"><br><br>
             
-                <label for="date">Date</label><br>
-                <input type="date" id="date" name="date" required><br><br>
+                <label for="datetime">Tanggal dan Waktu</label><br>
+                <input type="datetime-local" id="datetime" name="datetime" required min="{{ date('Y-m-d\TH:i') }}"><br><br>
 
                 <div id="map" class="map-con"></div><br>
                 <input type="hidden" id="longitude" name="longitude">
                 <input type="hidden" id="latitude" name="latitude">
 
-                <label for="alamat">Addres</label><br>
+                <label for="alamat">Detail Lokasi</label><br>
                 <textarea id="alamat" name="alamat" placeholder="Surabaya, Jawa Timur, Indonesia" required></textarea><br><br>
             
                 <label for="paket">Pilihan Paket</label><br>
@@ -44,7 +49,7 @@
 
                 <p><strong>Harga: Rp <span id="harga">0</span></strong></p><br>
 
-                <button type="submit" class="button-booking">Submit</button>
+                <button type="submit" class="custom-button">Pesan Sekarang</button>
             </form>
         </div>
     </div>

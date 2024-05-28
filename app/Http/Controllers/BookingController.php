@@ -27,7 +27,7 @@ class BookingController extends Controller
         $booking->nama = $request->nama;
         $booking->email = $request->email;
         $booking->phone = $request->phone;
-        $booking->date = $request->date;
+        $booking->date = $request->datetime;
         $booking->alamat = $request->alamat;
         $booking->paket = $request->paket;
         $booking->harga = DB::table('harga')->where('id', $request->paket)->value('harga');
@@ -56,4 +56,30 @@ class BookingController extends Controller
 
         return back()->with('success', 'Status booking berhasil diupdate.');
     }
+
+    public function getBookingsOnProgress(){
+    $bookingsOnProgress = Booking::where('status', 'On Progress')->get();
+
+    $events = [];
+    foreach ($bookingsOnProgress as $booking) {
+        $events[] = [
+            'title' => $booking->nama, // Judul event (misalnya nama pemesan)
+            'start' => $booking->date, // Tanggal mulai booking
+            'extendedProps' => [
+                'bookingData' => [
+                    'nama' => $booking->nama,
+                    'alamat' => $booking->alamat,
+                    'date' => $booking->date,
+                    // tambahkan informasi lainnya sesuai kebutuhan
+                    'latitude' => $booking->latitude,
+                    'longitude' => $booking->longitude,
+                ]
+            ],
+        ];
+    }
+
+    return response()->json($events);
+}
+
+
 }

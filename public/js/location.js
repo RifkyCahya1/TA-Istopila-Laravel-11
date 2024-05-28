@@ -18,12 +18,32 @@ const search = new GeoSearch.GeoSearchControl({
 // Tambahkan kontrol pencarian ke peta
 map.addControl(search);
 
+let marker;
+
 map.on('moveend', function() {
     console.log('Peta telah digeser ke', map.getCenter());
 });
 
 map.on('zoomend', function() {
     console.log('Peta telah di-zoom ke level', map.getZoom());
+});
+
+map.on('click', function(event) {
+    // Dapatkan koordinat lokasi dari event klik
+    const lat = event.latlng.lat;
+    const lng = event.latlng.lng;
+
+    // Hapus marker yang mungkin sudah ada sebelumnya
+    if (marker) {
+        map.removeLayer(marker);
+    }
+
+    // Buat marker baru dengan koordinat yang didapatkan dari event klik
+    marker = L.marker([lat, lng]).addTo(map);
+
+    // Set nilai input hidden dengan koordinat lokasi
+    document.getElementById('latitude').value = lat;
+    document.getElementById('longitude').value = lng;
 });
 
 // Tambahkan event listener untuk event 'markgeocode'

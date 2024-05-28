@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email');
             $table->string('phone');
-            $table->date('date');
+            $table->dateTime('date');
             $table->text('alamat');
             $table->string('paket');
             $table->decimal('harga', 10, 2);

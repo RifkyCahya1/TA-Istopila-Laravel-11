@@ -116,3 +116,31 @@
     color: black;
     text-decoration: none;
 }
+
+.fc .fc-daygrid-event-harness {
+    position: relative;
+    background-color: #e0e5ee;
+}
+
+.fc-daygrid-dot-event .fc-event-title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-weight: 500;
+    min-width: 0px;
+    overflow: hidden;
+    color: #0f1922;
+}
+
+.fc-direction-ltr .fc-daygrid-event .fc-event-time {
+    margin-right: 3px;
+    color: #0f1922;
+}
+
+.fc-daygrid-event-dot {
+    border: calc(8px / 2) solid #0f1922;
+    border-radius: calc(8px / 2);
+    box-sizing: content-box;
+    height: 0px;
+    margin: 0px 4px;
+    width: 0px;
+}

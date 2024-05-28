@@ -43,7 +43,7 @@
                                         <th scope="col">Nama</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone</th>
-                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Tanggal dan Waktu</th>
                                         <th scope="col">Latitude</th>
                                         <th scope="col">Longtitude</th>
                                         <th scope="col">Alamat</th>
@@ -100,7 +100,7 @@
                                         <th scope="col">Nama</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone</th>
-                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Tanggal dan Waktu</th>
                                         <th scope="col">Latitude</th>
                                         <th scope="col">Longtitude</th>
                                         <th scope="col">Alamat</th>
@@ -152,7 +152,7 @@
                                         <th scope="col">Nama</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone</th>
-                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Tanggal dan Waktu</th>
                                         <th scope="col">Latitude</th>
                                         <th scope="col">Longtitude</th>
                                         <th scope="col">Alamat</th>
