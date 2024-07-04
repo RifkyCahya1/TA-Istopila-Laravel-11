@@ -30,11 +30,9 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if ($request->user()->type === 'admin') {
-            // Set success flash message for admin login
             Session::flash('success', 'Login berhasil sebagai admin!');
             return redirect('Dashboard');
         } else {
-            // Set success flash message for regular user login
             Session::flash('success', 'Login berhasil!');
             return redirect('/');
         }

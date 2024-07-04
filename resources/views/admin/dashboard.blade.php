@@ -1,6 +1,7 @@
 @extends('main')
 
 @section('content')
+@include('Navbar_Footer.NavbarAdmin')
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -14,29 +15,6 @@
         </div>
     </div>
 </div>
-
-
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid section-admin">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav custom-nav">
-                <li class="{{ Request::is('Dashboard') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Dashboard">Dashboard</a>
-                </li>
-                <li class="{{ Request::is('Upload') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Upload"><i class="bi bi-cloud-arrow-up" style="margin-right: 5px;"></i>Upload</a>
-                </li>
-                <li class="{{ Request::is('Project') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Project"><i class="bi bi-camera" style="margin-right: 5px;"></i>Project</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 
 <div class="container-fluid" style="padding: 10px 30px !important;">
     <div class="row">

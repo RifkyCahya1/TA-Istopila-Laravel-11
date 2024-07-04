@@ -25,7 +25,7 @@
 <div class="container-fluid section-galeri">
     <div class="row">
     @foreach($images as $image)
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="foto-galeri">
             <img src="{{ asset('images/' . $image->name) }}">
         </div>

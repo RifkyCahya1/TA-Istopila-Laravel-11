@@ -1,6 +1,7 @@
 @extends('main')
 
 @section('content')
+@include('Navbar_Footer.navbar')
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}

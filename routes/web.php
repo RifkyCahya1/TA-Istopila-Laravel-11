@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/Profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/Profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/Profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('Dashboard', [App\Http\Controllers\BookingController::class, 'userDashboard'])->name('layouts.dashboardUser');
 });
 
 Route::post('booking', [App\Http\Controllers\BookingController::class, 'store'])->name('booking.store');
