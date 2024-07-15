@@ -1,6 +1,7 @@
 @extends('main')
 
 @section('content')
+@include('Navbar_Footer.navbar')
 <div class="container-fluid section">
     <div class="row">
         <div class="col-md-12">

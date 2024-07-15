@@ -1,10 +1,9 @@
 @extends('main')
 
 @section('content')
-
 <div class="container-fluid section-profile">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12"> 
             @include('layouts.partials.update-profile-information-form')
         </div>
     </div>
@@ -36,5 +35,4 @@
         </div>
     </div>
 </div>
-
 @endsection

@@ -1,26 +1,7 @@
 @extends('main')
 
 @section('content')
-<nav class="navbar navbar-expand-lg" style="padding: 0 !important;">
-    <div class="container-fluid section-admin">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav custom-nav">
-                <li class="{{ Request::is('Dashboard') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Dashboard">Dashboard</a>
-                </li>
-                <li class="{{ Request::is('Upload') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Upload"><i class="bi bi-cloud-arrow-up" style="margin-right: 5px;"></i>Upload</a>
-                </li>
-                <li class="{{ Request::is('Project') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Project"><i class="bi bi-camera" style="margin-right: 5px;"></i>Project</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+@include('Navbar_Footer.NavbarAdmin')
 
 <div class="cotainer-fluid" style="padding: 10px;">
     <div class="row">
@@ -44,8 +25,6 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone</th>
                                         <th scope="col">Tanggal dan Waktu</th>
-                                        <th scope="col">Latitude</th>
-                                        <th scope="col">Longtitude</th>
                                         <th scope="col">Alamat</th>
                                         <th scope="col">Paket</th>
                                         <th scope="col">Aksi</th>
@@ -59,8 +38,6 @@
                                         <td>{{ $booking->email }}</td>
                                         <td>{{ $booking->phone }}</td>
                                         <td>{{ $booking->date }}</td>
-                                        <td>{{ $booking->latitude }}</td>
-                                        <td>{{ $booking->longitude }}</td>
                                         <td>{{ $booking->alamat }}</td>
                                         <td>{{ $booking->paket }}</td>
                                         <td>
@@ -69,11 +46,39 @@
                                                 <input type="hidden" name="status" value="On Progress">
                                                 <button type="submit" class="btn btn-success btn-sm">Terima</button>
                                             </form>
-                                            <form action="{{ route('admin.update-status', $booking->id) }}" method="POST" style="margin-top: 5px;">
-                                                @csrf
-                                                <input type="hidden" name="status" value="Rejected">
-                                                <button type="submit" class="btn btn-danger btn-sm">Tolak</button>
-                                            </form>
+
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolakModal">Tolak</button>
+                                            <div class="modal fade" id="tolakModal" tabindex="-1" aria-labelledby="tolakModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" style="display: flex; align-items: center; justify-content: center; min-height: calc(100% - 1rem);">
+                                                    <form action="{{ route('admin.update-status', $booking->id) }}" method="POST" class="modal-content p-6">
+                                                        @csrf
+
+                                                        <div class="modal-header">
+                                                            <h2 class="modal-title" id="tolakModalLabel">Apa kamu yakin menolak pesanan ?</h2>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <p>Berikan alasan kamu menolak pesanan ?</p>
+
+                                                            <div class="mt-6">
+                                                                <div class="mt-2">
+                                                                    <textarea id="#" name="#" placeholder="Alasan..." required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                Cancel
+                                                            </button>
+
+                                                            <input type="hidden" name="status" value="Rejected">
+                                                            <button type="submit" class="btn btn-danger ">Tolak</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <button id="navigateToLocationBtn" class="btn btn-primary btn-sm">Lihat Lokasi</button>
                                         </td>
                                     </tr>
                                     @endforeach

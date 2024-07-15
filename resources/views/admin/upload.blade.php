@@ -1,36 +1,17 @@
 @extends('main')
 
 @section('content')
+@include('Navbar_Footer.NavbarAdmin')
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
-<nav class="navbar navbar-expand-lg" style="padding: 0 !important;">
-    <div class="container-fluid section-admin">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav custom-nav">
-                <li class="{{ Request::is('Dashboard') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Dashboard">Dashboard</a>
-                </li>
-                <li class="{{ Request::is('Upload') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Upload"><i class="bi bi-cloud-arrow-up" style="margin-right: 5px;"></i>Upload</a>
-                </li>
-                <li class="{{ Request::is('Project') ? 'active' : '' }}">
-                    <a class="nav-link custom-link" href="Project"><i class="bi bi-camera" style="margin-right: 5px;"></i>Project</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
 <div class="container-fluid section">
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
+            <form id="uploadForm" action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <label for="foto">Pilih Foto:</label>
@@ -43,10 +24,33 @@
                     <option value="Wedding">Wedding</option>
                 </select><br><br>
 
-                <button type="submit" class="button-login">Submit</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Unggah</button>
             </form>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Konfirmasi</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah kamu yakin ingin mengunggah foto ini?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Ya, Unggah!</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
+
+function submitForm() {
+    document.getElementById('uploadForm').submit();
+}
+</script>
 
 @endsection

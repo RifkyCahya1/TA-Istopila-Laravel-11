@@ -18,11 +18,12 @@ return new class extends Migration
             $table->string('phone');
             $table->dateTime('date');
             $table->text('alamat');
-            $table->string('paket');
+            $table->unsignedBigInteger('paket_id');
             $table->decimal('harga', 10, 2);
-            $table->decimal('longitude', 10, 7);
-            $table->decimal('latitude', 10, 7);
+            $table->decimal('longitude', 10, 7)->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
             $table->string('status')->default('Pending');
+            $table->string('snap_token');
             $table->timestamps();
         });
     }

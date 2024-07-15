@@ -3,88 +3,120 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\harga;
+use App\Models\Payment;
 use App\Models\User;
 use App\Notifications\UserBookingNotification;
 use App\Notifications\AdminBookingNotification;
+use App\Services\MidtransService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Midtrans\Config;
+use Midtrans\Snap;
+use illuminate\Support\Str;
 
 class BookingController extends Controller
 {
     public function showBookingForm()
     {
-        $paket = DB::table('harga')->get();
-        dd($paket);
-        return view('booking', compact('paket'));
+        $harga_list = harga::all();
+        return view('home.booking', compact('harga_list'));
+    }
+
+    protected $midtransService;
+    public function __construct(MidtransService $midtransService)
+    {
+        $this->midtransService = $midtransService;
     }
 
     public function store(Request $request)
-    {
-        if (!Auth::check()) {
-            return redirect('/login')->with('error', 'Anda harus login terlebih dahulu untuk melakukan booking.');
-        };
-
-        $booking = new Booking();
-
-        $booking->nama = $request->nama;
-        $booking->email = $request->email;
-        $booking->phone = $request->phone;
-        $booking->date = $request->datetime;
-        $booking->alamat = $request->alamat;
-        $booking->paket = $request->paket;
-        $booking->harga = DB::table('harga')->where('id', $request->paket)->value('harga');
-        $booking->longitude = $request->longitude;
-        $booking->latitude = $request->latitude;
-
-        $booking->save();
-        // Pengiriman notifikasi ke pengguna yang sedang login
-        $user = Auth::user();
-        Notification::send($user, new UserBookingNotification($booking));
-
-        // Kirim notifikasi ke semua admin
-        $admin = User::where('type', 'admin')->get();
-        Notification::send($admin, new AdminBookingNotification($booking));
-
-
-        return redirect('Contact')->with('success', 'Booking berhasil');
+{
+    if (!Auth::check()) {
+        return redirect('/login')->with('error', 'Anda harus login terlebih dahulu untuk melakukan booking.');
     }
+
+    $bookings = new Booking();
+
+    $bookings->nama = $request->nama;
+    $bookings->email = $request->email;
+    $bookings->phone = $request->phone;
+    $bookings->date = $request->datetime;
+    $bookings->alamat = $request->alamat;
+    $bookings->paket_id = $request->paket_id;
+    $bookings->harga = DB::table('harga')->where('id', $request->paket_id)->value('harga');
+    $bookings->longitude = $request->longitude;
+    $bookings->latitude = $request->latitude;
     
-    public function adminIndex()
-    {
-        $pending = Booking::where('status', 'Pending')->get(); 
-        $onProgress = Booking::where('status', 'On Progress')->get(); 
-        $completed = Booking::where('status', 'Completed')->get(); 
+    // Debugging code here
+    Log::info('Booking details before save: ', $bookings->toArray());
 
-        return view('admin.project', compact('pending', 'onProgress', 'completed'));
+        $bookings->save();
+
+        $order_id = $bookings->id . '-' . Str::uuid();
+
+        $params = [
+            'first_name' => $bookings->nama,
+            'email' => $bookings->email,
+            'phone' => $bookings->phone,
+        ];
+
+        Log::info('Generated Order ID: ' . $order_id);
+
+        $transaction = $this->midtransService->createTransaction($order_id, $bookings->harga, $params);
+
+        if (is_null($transaction) || !isset($transaction['token'])) {
+            Log::error('Failed to get Snap token from Midtrans');
+            return back()->withErrors(['error' => 'Failed to initiate transaction with Midtrans.']);
+        }
+
+        $snapToken = $transaction['token'];
+        
+        $payment = new Payment();
+        $payment->booking_id = $bookings->id;
+        $payment->transaction_id = $snapToken; // Gunakan token sebagai transaction_id, sesuaikan dengan yang sesuai dengan data Midtrans yang Anda simpan.
+        $payment->amount = $bookings->harga; // Sesuaikan dengan harga yang sesuai dengan booking.
+        $payment->status = 'pending'; // Misalnya status awalnya 'pending'.
+        $payment->payment_type = null; // Sesuaikan dengan tipe pembayaran jika ada.
+        $payment->order_id = $order_id;
+        $payment->save();
+
+
+        Log::info('Snap token: ', ['token' => $snapToken]);
+
+        return redirect()->route('booking.payment', ['snapToken' => $snapToken, 'booking' => $bookings->id]);
     }
 
-    public function updateStatus(Request $request, $id)
+    public function payment(Request $request)
     {
-        $booking = Booking::find($id);
-        $booking->status = $request->status;
-        $booking->save();
+        $snapToken = $request->query('snapToken');
+        $bookings = Booking::find($request->query('booking'));
 
-        return back()->with('success', 'Status booking berhasil diupdate.');
+        if (!$bookings) {
+            return redirect()->route('home')->with('error', 'Booking not found.');
+        }
+
+        return view('component.payment', compact('snapToken', 'bookings'));
     }
 
     public function getBookingsOnProgress(){
-        $bookingsOnProgress = Booking::where('status', 'On Progress')->get();
+        $bookingssOnProgress = Booking::where('status', 'On Progress')->get();
 
         $events = [];
-            foreach ($bookingsOnProgress as $booking) {
+            foreach ($bookingssOnProgress as $bookings) {
                 $events[] = [
-                    'title' => $booking->nama, // Judul event (misalnya nama pemesan)
-                    'start' => $booking->date, // Tanggal mulai booking
+                    'title' => $bookings->nama, 
+                    'start' => $bookings->date, 
                     'extendedProps' => [
                         'bookingData' => [
-                            'nama' => $booking->nama,
-                            'alamat' => $booking->alamat,
-                            'date' => $booking->date,
+                            'nama' => $bookings->nama,
+                            'alamat' => $bookings->alamat,
+                            'date' => $bookings->date,
                             // tambahkan informasi lainnya sesuai kebutuhan
-                            'latitude' => $booking->latitude,
-                            'longitude' => $booking->longitude,
+                            'latitude' => $bookings->latitude,
+                            'longitude' => $bookings->longitude,
                         ]
                     ],
                 ];
@@ -92,12 +124,5 @@ class BookingController extends Controller
         return response()->json($events);
     }
 
-    public function userDashboard()
-{
-    $user = Auth::user(); // Mendapatkan pengguna yang sedang login
-    $bookings = Booking::where('email', $user->email)->orderBy('date', 'desc')->get(); // Mengambil pemesanan berdasarkan email pengguna
-
-    return view('layouts/dashboardUser', compact('bookings'));
-}
 
 }

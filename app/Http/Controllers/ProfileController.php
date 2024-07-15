@@ -6,14 +6,12 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function edit(Request $request): View
     {
         return view('layouts/profile', [
@@ -21,11 +19,10 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        Log::info('Profile update request:', $request->all());
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -34,23 +31,26 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
+        Log::info('Profile updated successfully for user:', ['id' => $request->user()->id]);
+
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
+        $validated = $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
+
+        Log::info('User deletion request:', $request->all());
 
         $user = $request->user();
 
         Auth::logout();
 
         $user->delete();
+
+        Log::info('User deleted successfully:', ['id' => $user->id]);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

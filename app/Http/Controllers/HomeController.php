@@ -16,11 +16,15 @@ class HomeController extends Controller
     }
 
     public function contact(){
-        $harga_list = Harga::all();
-        return view('home/contact', compact('harga_list'));
+        return view('home/contact');
     }
 
     public function gallery(){
         return view('home/gallery');
+    }
+    
+    public function pesan(){
+        $harga_list = Harga::all();
+        return view('home/booking', compact('harga_list'));
     }
 }

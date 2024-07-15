@@ -9,16 +9,19 @@ class booking extends Model
 {
     use HasFactory;
 
+    protected $table = 'bookings';
+
     protected $fillable = [
         'nama',
         'email',
         'phone',
         'date',
         'alamat',
-        'paket',
+        'paket_id',
         'harga',
         'longitude',
         'latitude',
-        'status'
+        'status',
+        'snap_token'
     ];
 }

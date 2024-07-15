@@ -8,7 +8,7 @@
             <li class="{{ Request::is('Dashboard') ? 'active' : '' }}"><a class="nav-link nav-home" href="Dashboard">Dashboard</a></li>
             <li class="{{ Request::is('Upload') ? 'active' : '' }}"><a class="nav-link nav-home" href="Upload">Upload</a></li>
             <li class="{{ Request::is('Project') ? 'active' : '' }}"><a class="nav-link nav-home" href="Project">Project</a></li>
-            <li class="{{ Request::is('Gallery') ? 'active' : '' }}"><a class="nav-link nav-home" href="Gallery">Gallery</a></li>
+            <li class="{{ Request::is('Report') ? 'active' : '' }}"><a class="nav-link nav-home" href="Report">Report</a></li>
             <li class="{{ Request::is('Profile') ? 'active' : '' }}"><a class="nav-link nav-home" href="Profile"><i class="bi bi-person"></i></a></li>
         </ul>
       </div>
