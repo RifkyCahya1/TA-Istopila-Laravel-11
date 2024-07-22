@@ -4,16 +4,14 @@
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.6.0" }
     },
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/api/index.php"
-        }
-    ],
+    "routes": [{
+    "src": "/(.*)",
+    "dest": "/api/index.php"
+    }],
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://your.url.from.vercel.app",
+        "APP_URL": "https://istopila-fotografi-91astgrby-rifkycahya1s-projects.vercel.app",
         "APP_KEY": "base64:j63qy7xcFll3C+8Le5PeQpXdIKm+SVk9E5tyUOwVDH4=",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
