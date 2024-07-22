@@ -11,10 +11,26 @@
     }
     ],
     "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "public/$1"
-    }
+        {
+            "src": "/(.*)",
+            "dest": "public/$1"
+        },
+        {
+            "src": "/css/(.*)",
+            "dest": "/public/css/"
+        },
+        {
+            "src": "/images/(.*)",
+            "dest": "/public/images/"
+        },
+        {
+            "src": "/img/(.*)",
+            "dest": "/public/img/"
+        },
+        {
+            "src": "/js/(.*)",
+            "dest": "/public/js/"
+        }
     ],
     "env": {
         "APP_ENV": "production",
