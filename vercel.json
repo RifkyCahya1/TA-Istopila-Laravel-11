@@ -13,7 +13,7 @@
     "routes": [
     {
       "src": "/(.*)",
-      "dest": "public/index.php"
+      "dest": "public/$1"
     }
     ],
     "env": {
