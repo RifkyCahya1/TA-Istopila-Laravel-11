@@ -39,8 +39,8 @@
         @yield('content')
         @include('Navbar_Footer.footer')
 
-        <script src="js/location.js"></script>
-        <script src="js/mapabout.js"></script>
-        <script src="js/calendar.js"></script>
+        <script src="{{ asset('js/location.js') }}"></script>
+        <script src="{{ asset('js/mapabout.js') }}"></script>
+        <script src="{{ asset('js/calendar.js') }}"></script>
     </body>
 </html>
