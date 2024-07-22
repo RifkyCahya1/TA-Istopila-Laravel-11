@@ -22,10 +22,9 @@ class BookingController extends Controller
 {
     public function showBookingForm()
     {
-        $harga_list = harga::all();
+        $harga_list = Harga::all();
         return view('home.booking', compact('harga_list'));
     }
-
     protected $midtransService;
     public function __construct(MidtransService $midtransService)
     {
@@ -33,13 +32,12 @@ class BookingController extends Controller
     }
 
     public function store(Request $request)
-{
+    {
     if (!Auth::check()) {
         return redirect('/login')->with('error', 'Anda harus login terlebih dahulu untuk melakukan booking.');
     }
 
     $bookings = new Booking();
-
     $bookings->nama = $request->nama;
     $bookings->email = $request->email;
     $bookings->phone = $request->phone;
@@ -49,57 +47,35 @@ class BookingController extends Controller
     $bookings->harga = DB::table('harga')->where('id', $request->paket_id)->value('harga');
     $bookings->longitude = $request->longitude;
     $bookings->latitude = $request->latitude;
-    
-    // Debugging code here
-    Log::info('Booking details before save: ', $bookings->toArray());
+    $bookings->status = 'pending'; // Status awal
+    $bookings->save();
 
-        $bookings->save();
+    $order_id = $bookings->id . '-' . Str::uuid();
 
-        $order_id = $bookings->id . '-' . Str::uuid();
+    $params = [
+        'first_name' => $bookings->nama,
+        'email' => $bookings->email,
+        'phone' => $bookings->phone,
+    ];
 
-        $params = [
-            'first_name' => $bookings->nama,
-            'email' => $bookings->email,
-            'phone' => $bookings->phone,
-        ];
+    Log::info('Generated Order ID: ' . $order_id);
 
-        Log::info('Generated Order ID: ' . $order_id);
+    $transaction = $this->midtransService->createTransaction($order_id, $bookings->harga, $params);
 
-        $transaction = $this->midtransService->createTransaction($order_id, $bookings->harga, $params);
-
-        if (is_null($transaction) || !isset($transaction['token'])) {
-            Log::error('Failed to get Snap token from Midtrans');
-            return back()->withErrors(['error' => 'Failed to initiate transaction with Midtrans.']);
-        }
-
-        $snapToken = $transaction['token'];
-        
-        $payment = new Payment();
-        $payment->booking_id = $bookings->id;
-        $payment->transaction_id = $snapToken; // Gunakan token sebagai transaction_id, sesuaikan dengan yang sesuai dengan data Midtrans yang Anda simpan.
-        $payment->amount = $bookings->harga; // Sesuaikan dengan harga yang sesuai dengan booking.
-        $payment->status = 'pending'; // Misalnya status awalnya 'pending'.
-        $payment->payment_type = null; // Sesuaikan dengan tipe pembayaran jika ada.
-        $payment->order_id = $order_id;
-        $payment->save();
-
-
-        Log::info('Snap token: ', ['token' => $snapToken]);
-
-        return redirect()->route('booking.payment', ['snapToken' => $snapToken, 'booking' => $bookings->id]);
+    if (is_null($transaction) || !isset($transaction['token'])) {
+        Log::error('Failed to get Snap token from Midtrans');
+        return back()->withErrors(['error' => 'Failed to initiate transaction with Midtrans.']);
     }
 
-    public function payment(Request $request)
-    {
-        $snapToken = $request->query('snapToken');
-        $bookings = Booking::find($request->query('booking'));
+    $snapToken = $transaction['token'];
 
-        if (!$bookings) {
-            return redirect()->route('home')->with('error', 'Booking not found.');
-        }
+    // Simpan token dan ID booking di session
+    session(['snapToken' => $snapToken, 'bookingId' => $bookings->id]);
 
-        return view('component.payment', compact('snapToken', 'bookings'));
+    // Redirect ke halaman dashboard pengguna
+    return redirect()->route('layouts.dashboardUser')->with('success', 'Booking berhasil dibuat. Silakan melakukan pembayaran.');
     }
+
 
     public function getBookingsOnProgress(){
         $bookingssOnProgress = Booking::where('status', 'On Progress')->get();

@@ -18,7 +18,10 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->string('status');
             $table->string('payment_type')->nullable();
-            $table->string('order_id');
+            $table->string('order_id')->unique();
+            $table->string('customer_name');
+            $table->string('customer_email');
+            $table->string('customer_phone');
             $table->timestamps();
         });
     }

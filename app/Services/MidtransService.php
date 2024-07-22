@@ -21,61 +21,31 @@ class MidtransService
         $this->baseUrl = config('services.midtrans.is_production') ? 'https://app.midtrans.com/snap/v1/transactions' : 'https://app.sandbox.midtrans.com/snap/v1/transactions';
     }
 
-    public function createTransaction($orderId, $amount, $params)
+    public function createTransaction($order_id, $amount, $params)
     {
-        $endpoint = $this->baseUrl;
-        $data = [
-            'transaction_details' => [
-                'order_id' => $orderId,
-                'gross_amount' => (int)$amount,
-            ],
-            'customer_details' => [
-                'first_name' => $params['first_name'],
-                'email' => $params['email'],
-                'phone' => $params['phone'],
-            ],
-            'item_details' => [
-                [
-                    'id' => 'item1',
-                    'price' => (int)$amount,
-                    'quantity' => 1,
-                    'name' => 'Item Name'
-                ]
-            ],
-            'credit_card' => [
-                'secure' => true
-            ],
-        ];
-
         try {
-            $response = $this->client->post($endpoint, [
+            $response = $this->client->post($this->baseUrl, [
                 'headers' => [
                     'Authorization' => 'Basic ' . base64_encode($this->serverKey . ':'),
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
+                    'Content-Type'  => 'application/json',
                 ],
-                'json' => $data,
+                'json' => [
+                    'transaction_details' => [
+                        'order_id' => $order_id,
+                        'gross_amount' => $amount,
+                    ],
+                    'customer_details' => $params,
+                ],
             ]);
 
-            $responseBody = json_decode($response->getBody(), true);
-
-            // Logging the response
-            Log::info('Midtrans response: ', $responseBody);
-
-            if (is_null($responseBody) || !isset($responseBody['token'])) {
-                Log::error('Invalid Midtrans response: ', ['response' => $responseBody]);
-                return null;
-            }
+            $responseBody = json_decode($response->getBody()->getContents(), true);
+            Log::info('Midtrans createTransaction response:', $responseBody);
 
             return $responseBody;
         } catch (RequestException $e) {
-            // Log the error
-            Log::error('Midtrans API error: ' . $e->getMessage());
-            Log::error('Request data: ', $data);
-            if ($e->hasResponse()) {
-                Log::error('Response: ' . $e->getResponse()->getBody()->getContents());
-            }
+            Log::error('Midtrans createTransaction error:', ['message' => $e->getMessage()]);
             return null;
         }
     }
 }
+

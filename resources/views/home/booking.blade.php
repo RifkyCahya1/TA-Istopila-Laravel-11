@@ -7,7 +7,7 @@
         {{ session('success') }}
     </div>
 @endif
-<div class="container-fluid section">
+<div class="container-fluid" style="padding: 30px 25px !important;">
     <div class="row">
         <div class="col-lg-12">
             <h5 class="judul-map">Booking : </h5>

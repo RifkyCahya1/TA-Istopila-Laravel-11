@@ -15,7 +15,7 @@ class HargaTableSeeder extends Seeder
     {
         DB::table('harga')->insert([
             ['nama' => 'Couple', 'harga' => 1000000],
-            ['nama' => 'Pre-Wedding', 'harga' => 2000000],
+            ['nama' => 'Pre-Wedding', 'harga' => 2500000],
             ['nama' => 'Wedding', 'harga' => 4000000],
         ]);
     }

@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/Contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
     Route::get('/Gallery', [App\Http\Controllers\HomeController::class, 'gallery']);
     Route::get('/About', [App\Http\Controllers\HomeController::class, 'about']);
-    Route::get('/Pemesanan', [App\Http\Controllers\HomeController::class, 'pesan']);
+    Route::get('/Booking', [App\Http\Controllers\BookingController::class, 'showBookingForm'])->name('booking.form');
+    Route::post('/booking', [App\Http\Controllers\BookingController::class, 'store'])->name('booking.store');
 
 // Admin Page
 Route::middleware(['auth','admin'])->group(function () {
@@ -36,11 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/Profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/Profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/Profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/UserDashboard', [App\Http\Controllers\BookingController::class, 'userDashboard'])->name('layouts.dashboardUser');
+    Route::get('/UserDashboard', [App\Http\Controllers\UserDashboardController::class, 'UserDashboard'])->name('layouts.dashboardUser');
 });
 
-Route::post('/booking', [App\Http\Controllers\BookingController::class, 'store'])->name('booking.store');
-Route::get('/payment', [App\Http\Controllers\BookingController::class, 'payment'])->name('booking.payment');
+Route::get('/initiate-payment/{id}', [App\Http\Controllers\UserDashboardController::class, 'initiatePayment'])->name('initiate.payment');
+
 
 
 require __DIR__.'/auth.php';

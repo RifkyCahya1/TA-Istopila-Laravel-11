@@ -9,7 +9,7 @@
           <li class="{{ Request::is('About') ? 'active' : '' }}"><a class="nav-link nav-home" href="About">About</a></li>
           <li class="{{ Request::is('Gallery') ? 'active' : '' }}"><a class="nav-link nav-home" href="Gallery">Gallery</a></li>
           <li class="{{ Request::is('Contact') ? 'active' : '' }}"><a class="nav-link nav-home" href="Contact">Contact</a></li>
-          <li class="{{ Request::is('Pemesanan') ? 'active' : '' }}"><a class="nav-link nav-home" href="Pemesanan">Booking</a></li>
+          <li class="{{ Request::is('Booking') ? 'active' : '' }}"><a class="nav-link nav-home" href="Booking">Booking</a></li>
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-gear-fill"></i>

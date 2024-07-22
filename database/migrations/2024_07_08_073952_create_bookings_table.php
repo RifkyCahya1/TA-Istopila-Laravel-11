@@ -20,11 +20,11 @@ return new class extends Migration
             $table->text('alamat');
             $table->unsignedBigInteger('paket_id');
             $table->decimal('harga', 10, 2);
-            $table->decimal('longitude', 10, 7)->nullable();
-            $table->decimal('latitude', 10, 7)->nullable();
-            $table->string('status')->default('Pending');
-            $table->string('snap_token');
+            $table->string('longitude');
+            $table->string('latitude');
+            $table->string('status')->default('pending');
             $table->timestamps();
+
         });
     }
 

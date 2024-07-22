@@ -11,7 +11,7 @@
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" style="color: orange; font-weight: 500;">
                         <i class="bi bi-exclamation-circle" style="margin-right: 5px;"></i> 
-                        Pending Request
+                        Pending Order
                     </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
