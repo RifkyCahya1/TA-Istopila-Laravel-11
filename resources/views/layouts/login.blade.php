@@ -1,11 +1,7 @@
 @extends('main')
 
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
+@include('Navbar_Footer.navbar')
 <div class="container-fluid login-section">
     <div class="row">
         <div class="col-md-12">
@@ -18,45 +14,38 @@
                             <form action="{{ route('login') }}" method="POST">
                                 @csrf
 
-                                <!-- Email -->
-                                <label for="email">Email</label><br>
-                                <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus><br><br>
+                                <!-- Error Massage  -->
                                 @if($errors->has('email'))
-                                    <div>
+                                    <div class="error-message">
                                         @foreach ($errors->get('email') as $message)
                                             <p>{{ $message }}</p>
                                         @endforeach
                                     </div>
                                 @endif
 
-                                <!-- Password -->
-                                <label for="password">Password</label><br>
-                                <input type="password" id="password" name="password" required autocomplete="current-password"><br><br>
                                 @if($errors->has('password'))
-                                    <div>
+                                    <div class="error-message">
                                         @foreach ($errors->get('password') as $message)
                                             <p>{{ $message }}</p>
                                         @endforeach
                                     </div>
                                 @endif
+                                <!-- Email -->
+                                <label for="email">Email</label><br>
+                                <input type="email" id="email" name="email" value="{{ old('email') }}" required pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address." required autofocus >
+                                
 
-                                <!-- Remember Me -->
-                                <!-- <label for="remember_me">
-                                    <input id="remember_me" type="checkbox" name="remember">
-                                    <span>Remember me</span>
-                                </label><br><br> -->
-
-                                <!-- Forgot Password -->
-                                @if (Route::has('password.request'))
-                                    <!-- <a class="teks-map" href="{{ route('password.request') }}">Forgot your password?</a><br><br> -->
-                                @endif
+                                <!-- Password -->
+                                <label for="password">Password</label><br>
+                                <input type="password" id="password" name="password" required autocomplete="current-password" pattern=".{8,}" title="Password must be at least 8 characters long."><br>
+                                
                                 
                                 <button type="submit" class="button-login">Sign In</button>
                             </form>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="custom-login" style="background-color: white; border-radius: 10px;">
+                        <div class="custom-login" style="background-color: white; border-radius: 3px;">
                             <h5 class="judul" style="font-size: 24px;">Welcome !</h5>
                             <hr class="line-login">
                             <p class="teks-map" style="text-align: center;">Register with your personal details to use all of site features</p>

@@ -37,6 +37,32 @@ class BookingController extends Controller
         return redirect('/login')->with('error', 'Anda harus login terlebih dahulu untuk melakukan booking.');
     }
 
+    $request->validate([
+        'nama' => 'required|regex:/^[A-Za-z\s]+$/',
+        'email' => 'required|email, lowercase',
+        'phone' => 'required|regex:/^[0-9]{10,13}$/',
+        'datetime' => 'required|date',
+        'alamat' => 'required',
+        'paket_id' => 'required|exists:harga,id',
+        'longitude' => 'required|numeric',
+        'latitude' => 'required|numeric',
+    ], [
+        'nama.required' => __('The name field is required.'),
+        'nama.regex' => __('Nama hanya boleh mengandung huruf dan spasi.'),
+        'email.required' => __('The email field is required.'),
+        'email.email' => __('The email must be a valid email address.'),
+        'phone.required' => __('The phone number field is required.'),
+        'phone.regex' => __('Nomor telepon harus terdiri dari 10 hingga 13 digit angka.'),
+        'datetime.required' => __('The date and time field is required.'),
+        'alamat.required' => __('The address field is required.'),
+        'paket_id.required' => __('The package selection is required.'),
+        'paket_id.exists' => __('The selected package does not exist.'),
+        'longitude.required' => __('The longitude field is required.'),
+        'longitude.numeric' => __('The longitude must be a number.'),
+        'latitude.required' => __('The latitude field is required.'),
+        'latitude.numeric' => __('The latitude must be a number.'),
+    ]);
+
     $bookings = new Booking();
     $bookings->nama = $request->nama;
     $bookings->email = $request->email;

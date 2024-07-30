@@ -12,10 +12,9 @@ const provider = new GeoSearch.OpenStreetMapProvider({
 const search = new GeoSearch.GeoSearchControl({
     provider: provider,
     notFoundMessage: 'Sorry, that address could not be found.',
-    style: 'bar', // Menambahkan gaya 'bar' untuk form pencarian
+    style: 'bar',
 })
 
-// Tambahkan kontrol pencarian ke peta
 map.addControl(search);
 
 let marker;

@@ -13,9 +13,15 @@
         <div class="col-md-12">
             <form id="uploadForm" action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
-                <label for="foto">Pilih Foto:</label>
-                <input type="file" id="foto" name="foto" class="form-control" accept="" required><br>
+                @if($errors->has('image'))
+                    <div class="error-message">
+                        @foreach ($errors->get('image') as $message)
+                            <p>{{ $message }}</p>
+                        @endforeach
+                    </div>
+                @endif
+                <label for="image">Pilih Foto:</label>
+                <input type="file" id="image" name="image" class="form-control" accept="image/*" required><br>
                 
                 <label for="service">Pilihan Paket</label><br>
                 <select id="service" name="service" required>

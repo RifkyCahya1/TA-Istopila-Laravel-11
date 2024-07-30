@@ -47,20 +47,26 @@
                     <tr>
                         <th>ID Pesanan</th>
                         <th>Nama Klien</th>
+                        <th>Email</th>
                         <th>Tanggal Pemesanan</th>
+                        <th>Paket</th>
                         <th>Total Pembayaran</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($bookings as $booking)
-                        <tr>
-                            <td>{{ $booking->id }}</td>
-                            <td>{{ $booking->nama }}</td>
-                            <td>{{ $booking->date }}</td>
-                            <td>Rp {{ number_format($booking->harga, 0, ',', '.') }}</td>
-                            <td>{{ $booking->status ?? 'N/A' }}</td>
-                        </tr>
+                        @if($booking->status !== 'Rejected')
+                            <tr>
+                                <td>{{ $booking->id }}</td>
+                                <td>{{ $booking->nama }}</td>
+                                <td>{{ $booking->email }}</td>
+                                <td>{{ $booking->date }}</td>
+                                <td>{{ $booking->paket_id }}</td>
+                                <td>Rp {{ number_format($booking->harga, 0, ',', '.') }}</td>
+                                <td>{{ $booking->status ?? 'N/A' }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

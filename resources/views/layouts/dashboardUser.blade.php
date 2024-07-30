@@ -51,6 +51,7 @@
                             <th scope="col">paket_id</th>
                             <th scope="col">Total</th>
                             <th scope="col">Status</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +62,17 @@
                             <td>{{ $booking->paket_id }}</td>
                             <td>Rp {{ number_format($booking->harga, 0, ',', '.') }}</td>
                             <td>{{ $booking->status }}</td>
+                            <td>
+                                @if($booking->status === 'Rejected')
+                                    <strong>{{ $booking->alasanTolak }}</strong>
+                                @elseif($booking->status === 'pending')
+                                    <strong><p>Menunggu Konfirmasi</p></strong>
+                                @elseif($booking->status === 'On Progress')
+                                    <strong><p>Pesanan Kamu Sedang Diproses</p></strong>
+                                @elseif($booking->status === 'Completed')
+                                    <strong><p>Pesanan Kamu Selesai</p></strong>
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

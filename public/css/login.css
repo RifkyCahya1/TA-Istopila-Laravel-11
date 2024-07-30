@@ -1,7 +1,7 @@
 .loginregister{
     background-color: #c7cbd8;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    border-radius: 10px;
+    border-radius: 3px;
 }
 
 .line-login{
@@ -41,6 +41,7 @@ input[type="password"]{
     box-shadow: 0px 2px 4px rgba(235, 0, 141, 0.2); 
     border-radius: 10px;
     font-size: 16px;
+    margin-bottom: 15px;
 }
 
 .custom-login .button-login{
@@ -105,24 +106,10 @@ input[type="password"]{
     color: #2c64e3;
 }
 
-.alert-success {
-    background-color: #dff0d8;
-    color: #3c763d;
-    border: 1px solid #d6e9c6;
-    padding: 10px;
-    border-radius: 5px;
-    /* Tambahkan gaya lain sesuai kebutuhan */
-}
-
-.alert-success {
-    animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+.error-message {
+    color: #d9534f; 
+    background-color: #f2dede; /* Latar belakang merah muda */
+    border: 1px solid #ebccd1; /* Border warna merah muda */
+    padding: 10px; /* Padding untuk ruang dalam */
+    border-radius: 5px; /* Sudut melengkung */
 }

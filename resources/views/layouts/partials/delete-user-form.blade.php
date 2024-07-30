@@ -7,8 +7,8 @@
     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmUserDeletionModal">Delete Account</button>
 
     <div class="modal fade" id="confirmUserDeletionModal" tabindex="-1" aria-labelledby="confirmUserDeletionModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <form method="post" action="{{ route('profile.destroy') }}" class="modal-content p-6">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="post" action="{{ route('profile.destroy') }}" class="modal-content">
                 @csrf
                 @method('delete')
 

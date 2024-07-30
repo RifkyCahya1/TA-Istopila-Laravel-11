@@ -13,7 +13,7 @@ class ImageUploadController extends Controller
 
     public function upload(Request $request) {
         $request->validate([
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'service' => 'required|in:Couple,Pre-wedding,Wedding',
         ]);
 

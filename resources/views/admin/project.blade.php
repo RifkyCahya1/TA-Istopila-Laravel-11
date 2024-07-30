@@ -39,15 +39,15 @@
                                         <td>{{ $booking->phone }}</td>
                                         <td>{{ $booking->date }}</td>
                                         <td>{{ $booking->alamat }}</td>
-                                        <td>{{ $booking->paket }}</td>
+                                        <td>{{ $booking->paket_id }}</td>
                                         <td>
                                             <form action="{{ route('admin.update-status', $booking->id) }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="status" value="On Progress">
-                                                <button type="submit" class="btn btn-success btn-sm">Terima</button>
+                                                <button type="submit" class="btn btn-success btn-sm mb-1"><i class="bi bi-check-lg"></i></button>
                                             </form>
 
-                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolakModal">Tolak</button>
+                                            <button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#tolakModal"><i class="bi bi-x-lg"></i></button>
                                             <div class="modal fade" id="tolakModal" tabindex="-1" aria-labelledby="tolakModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" style="display: flex; align-items: center; justify-content: center; min-height: calc(100% - 1rem);">
                                                     <form action="{{ route('admin.update-status', $booking->id) }}" method="POST" class="modal-content p-6">
@@ -62,7 +62,7 @@
 
                                                             <div class="mt-6">
                                                                 <div class="mt-2">
-                                                                    <textarea id="#" name="#" placeholder="Alasan..." required></textarea>
+                                                                    <textarea id="alasanTolak" name="alasanTolak" placeholder="Alasan..." required></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -78,7 +78,9 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                            <button id="navigateToLocationBtn" class="btn btn-primary btn-sm">Lihat Lokasi</button>
+                                            <button class="btn btn-primary btn-sm tujuan" data-latitude="{{ $booking->latitude }}" data-longitude="{{ $booking->longitude }}">
+                                                <i class="bi bi-geo-alt-fill"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -209,5 +211,24 @@
         }
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.tujuan').forEach(button => {
+            button.addEventListener('click', function() {
+                // Ambil data latitude dan longitude dari atribut data tombol
+                const latitude = this.getAttribute('data-latitude');
+                const longitude = this.getAttribute('data-longitude');
+                
+                // Buat URL Google Maps dengan koordinat lokasi
+                const url = `https://www.google.com/maps/?q=${latitude},${longitude}`;
+                
+                // Buka URL di tab baru
+                window.open(url, '_blank');
+            });
+        });
+    });
+</script>
+
 
 @endsection

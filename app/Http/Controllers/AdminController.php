@@ -31,20 +31,24 @@ class AdminController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $booking = Booking::find($id);
-        $booking->status = $request->status;
+        $booking = Booking::findOrFail($id);
+        $booking->status = $request->input('status');
+
+        if ($request->input('status') === 'Rejected') {
+            $booking->alasanTolak = $request->input('alasanTolak');
+        }
+
         $booking->save();
 
-        return back()->with('success', 'Status booking berhasil diupdate.');
+        return redirect()->back()->with('success', 'Status booking berhasil diupdate.');
     }
-
 
     public function upload(){
         return view('admin/upload');
     }
 
     public function Report(){
-        $bookings = Booking::all();
+        $bookings = Booking::where('status', '!=', 'Rejected')->get();;
         $totalPendapatan = $bookings->sum('harga');
         $jumlahPesanan = $bookings->count();
         $bookings = Booking::paginate(10);

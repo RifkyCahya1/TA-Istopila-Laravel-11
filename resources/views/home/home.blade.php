@@ -36,8 +36,8 @@
     <div class="row">
         <div class="col-md-6">
             <h2 class="judul">About Us</h2>
-            <p class="teks">Based on the high rates of wedding in Jakarta, we dedicate ourselves to help the bride and groom to be, by running wedding planner and organizer. We provide end to end wedding needs, and also services to organize our clients memorable moment depend on their need. Our 'high' flying hours has proven that we are a reliable team with creative capacity that you can trust to make your wedding day unforgettable. It is our duty to make your dream wedding comes true, and be a part of your wedding day will be our pleasure.Being the helping hand to bride and grooms to be, Akuwedding will guide you through every step of the way, keeping things on schedule, completing every need you have, and will make sure that the wedding goes as planned.</p>
-            <a href="About" class="custom-button"><i class="bi bi-people" style="margin-right: 5px;"></i> See More</a>
+            <p class="teks" style="text-align: justify;">Istopila adalah layanan fotografi yang berbasis di Sidoarjo, Jawa Timur, yang menawarkan berbagai layanan fotografi untuk pasangan, prewedding, dan pernikahan. Kami berkomitmen untuk menangkap setiap momen berharga Anda dengan sentuhan artistik dan profesionalisme tinggi. Dengan Istopila, momen-momen berharga Anda akan diabadikan dengan sempurna, menciptakan kenangan indah yang akan selalu dikenang. Menjadi bagian dari hari pernikahan Anda adalah kehormatan bagi kami, dan kami akan memastikan bahwa segala sesuatunya berjalan sesuai rencana, sehingga hari spesial Anda menjadi benar-benar tak terlupakan.</p>
+            <a href="About" class="custom-button" style="margin-top: 20px;"><i class="bi bi-people"></i> See More</a>
 
         </div>
         <div class="col-md-6">
@@ -64,7 +64,7 @@
                 <div class="custom-card-content">
                     <h2 class="custom-card-title">Couple</h2>
                     <p class="teks">Capture Your Love - Menengabadikan keindahan momen-momen bersama dalam gambar. Bersama-sama, kita abadikan cinta Anda dalam foto-foto yang indah dan berkesan.</p>
-                    <button class="custom-button"><i class="bi bi-person-hearts" style="margin-right: 5px;"></i>See Detail</button>
+                    <a href="Couple" class="custom-button"><i class="bi bi-person-hearts" style="margin-right: 5px;"></i>See Detail</a>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
                 <div class="custom-card-content">
                     <h2 class="custom-card-title">Engagement</h2>
                     <p class="teks">Sebelum Hari Bahagia - Abadikan Kisah Cinta Anda. Rencanakan sesi foto pre-wedding Anda bersama kami dan biarkan kami mengabadikan momen-momen romantis Anda sebelum hari besar.</p>
-                    <button class="custom-button"><i class="bi bi-arrow-through-heart" style="margin-right: 5px;"></i>See Detail</button>
+                    <a href="Pre-Wedding" class="custom-button"><i class="bi bi-arrow-through-heart" style="margin-right: 5px;"></i>See Detail</a>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 <div class="custom-card-content">
                     <h2 class="custom-card-title">Wedding</h2>
                     <p class="teks">Abadikan Keindahan Pernikahan Anda - Abadikan momen yang tak terlupakan dari hari istimewa Anda. Biarkan kami mengabadikan kebahagiaan Anda pada hari pernikahan dari upacara hingga resepsi.</p>
-                    <button class="custom-button"><i class="bi bi-heart" style="margin-right: 5px;"></i>See Detail</button>
+                    <a href="Wedding" class="custom-button"><i class="bi bi-heart" style="margin-right: 5px;"></i>See Detail</a>
                 </div>
             </div>
         </div>
